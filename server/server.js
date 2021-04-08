@@ -17,8 +17,8 @@ const dbConStr = process.env.DBCONSTR;
 const server = express();
 
 // Middleware
-server.use(bodyParser.json({ limit: "30mb", extended: true }));
-server.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+server.use(bodyParser.json({ limit: "30mb", extended: true })); // Set limit on image size to 30 MB
+server.use(bodyParser.urlencoded({ limit: "30mb", extended: true })); // Set limit on image size to 30 MB
 server.use(cors());
 
 // Set the routes
