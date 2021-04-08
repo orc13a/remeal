@@ -18,7 +18,7 @@ server.use('/', require('./routes/index'));
 
 mongoose.connect(dbConStr, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => server.listen(port, () => {
-        console.log(`\n==> Server listning on port: ${port}`);
+        console.log(`\n==> Server listning on port: ${port}\n`);
     }))
     .catch((err) => {
         console.log(err);
