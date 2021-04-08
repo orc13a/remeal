@@ -15,6 +15,7 @@ server.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 server.use(cors());
 
 server.use('/', require('./routes/index'));
+server.use('/admin', require('./routes/admin'));
 
 mongoose.connect(dbConStr, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => server.listen(port, () => {
