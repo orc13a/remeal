@@ -6,17 +6,17 @@
 const express = require('express');
 const router = express.Router();
 
-// route will be: /admin/user/add
-// A GET request
-router.get('/user/add', (req, res) => {
+// Schemas
+const userSchema = require('../models/newUser');
 
-    // try {
-        
-    // } catch (error) {
-        
-    // }
+router.get('/users', async (req, res) => {
+    try {
+        const users = await userSchema.find();
 
-    res.end();
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(404).json({ "error": error.messages });
+    }
 });
 
 // Export we can be used outside this file
