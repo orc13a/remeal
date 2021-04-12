@@ -1,5 +1,7 @@
+// Libarys
 import React from 'react';
 
+// The app what is displayed int the browser
 const App = () => {
     return (
         <div>
