@@ -1,0 +1,14 @@
+/* 
+Font weights, all have italic
+
+300 light
+400 regular
+500 medium
+700 bold
+900 black
+*/
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: normal;
+}
