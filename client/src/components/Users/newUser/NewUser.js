@@ -7,3 +7,5 @@ const NewUser = () => {
         </h1>
     );
 }
+
+export default NewUser;
