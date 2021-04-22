@@ -12,6 +12,8 @@ server.use(cors())
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true })); // Support parsing of application/x-www-form-urlencoded post data
 
+server.use('/users', require('./routes/users')); // All routes /users/
+
 mongoose.connect(mongodbConnectionURL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => server.listen(PORT, () => console.log(`\n==> Connected to database\n==> Server listening on port: ${PORT}\n`)))
     .catch((err) => {throw err});
