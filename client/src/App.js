@@ -1,5 +1,5 @@
 // import './App.css';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar/Navbar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // Dette er vores app og der som vil blive vist i din browser

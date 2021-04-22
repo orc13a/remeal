@@ -11,4 +11,11 @@ Font weights, all have italic
 body {
     font-family: 'Montserrat', sans-serif;
     font-weight: normal;
+    margin: 0px;
+    padding: 0px;
+    /* background-color: #feffde; */
+}
+
+body, input, button, textarea {
+    letter-spacing: 1px;
 }
