@@ -1,5 +1,8 @@
 const express = require('express');
 const api = express.Router();
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const { v4: uuidv4 } = require('uuid');
 
 // Models
 const user = require('../models/user');
@@ -21,15 +24,25 @@ api.get('/all', async (req, res) => {
 // POST requests
 // ----------------------------------------
 
-api.post('create', (req, res) => {
-    console.log(req.body);
-    res.end();
+api.post('create', async (req, res) => {
+    let newUserObj = {
+        id: uuidv4(),
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        fullName: `${req.body.firstName} ${req.body.lastName}`,
+        email: req.body.email,
+        password: req.body.password,
+    }
+    
+    const newUser = new user(newUserObj);
 
-    // try {
-        
-    // } catch (error) {
-        
-    // }
+    try {
+        await newUser.save();
+
+        res.status(201).json({ message: `The user has been created successfully` });
+    } catch (error) {
+        res.status(409).json({ message: error.message });
+    }
 });
 
 // ----------------------------------------

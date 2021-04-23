@@ -1,9 +1,11 @@
 // import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
 import Navbar from './components/Navbar/Navbar';
 import Frontpage from './components/Frontpage/Frontpage';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // Dette er vores app og der som vil blive vist i din browser
 // Dette er et "root component"
