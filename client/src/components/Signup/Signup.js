@@ -5,7 +5,7 @@ import styles from './Signup.module.css';
 const Signup = () => {
     return (
         <div>
-            <form method="POST" action="/">
+            <form method="POST" action="/users/create">
                 <input type="text" name="signupEmail" placeholder="E-mail"/>
                 <input type="text" name="signupFirstName" placeholder="Fornavn"/>
                 <input type="text" name="signupLastName" placeholder="Efternavn"/>
