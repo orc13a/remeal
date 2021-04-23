@@ -1,4 +1,4 @@
-const reducer = (users = [], action) => {
+export default (users = [], action) => {
     switch (action.type) {
         case 'CREATE':
             return [... users, action.payload];
@@ -6,5 +6,3 @@ const reducer = (users = [], action) => {
             return users;
     }
 }
-
-export default reducer;
