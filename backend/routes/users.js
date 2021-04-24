@@ -34,18 +34,24 @@ api.post('/create', async (req, res) => {
         password: req.body.password,
     }
     
-    const newUser = new user(newUserObj);
+    if (!newUserObj.email || newUserObj.email === undefined || newUserObj.email.length < 5 || newUserObj.firstName.length < 2) {
+        res.status(409).json({ message: `Missing credentials` });
+    } else {
+        bcrypt.hash(newUserObj.password, saltRounds, async function(err, hashedPwd) {
+            if (err) { res.status(409).json({ message: err }); }
+            
+            newUserObj.password = hashedPwd;
 
-    try {
-        if (newUserObj.email != '') {
-            await newUser.save();
+            const newUser = new user(newUserObj);
 
-            res.status(201).json({ message: `The user has been created successfully` });
-        } else {
-            throw new Error(`No input given`);
-        }
-    } catch (error) {
-        res.status(409).json({ message: error.message });
+            try {
+                await newUser.save();
+
+                res.status(201).json({ message: `User has been created successfully` });
+            } catch (error) {
+                res.status(406).json({ message: error });
+            }
+        });
     }
 });
 

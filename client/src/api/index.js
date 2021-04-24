@@ -1,5 +1,5 @@
 import axios from 'axios';
 
-const url = 'http://localhost:9955/users';
+const API = axios.create({ baseURL: 'http://localhost:9955/' });
 
-export const createUser = (newUser) => axios.post(`${url}/create`, newUser);
+export const createUser = (newUser) => API.post('users/create', newUser);

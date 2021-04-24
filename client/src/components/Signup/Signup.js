@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import styles from './Signup.module.css';
 import { createUser } from '../../actions/users';
@@ -17,6 +18,8 @@ const Signup = () => {
         e.preventDefault();
         dispatch(createUser(userData));
     }
+
+    const res = useSelector((state) => state.users);
 
     return (
         <div>
