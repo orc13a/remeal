@@ -6,10 +6,14 @@ import Navbar from '../Navbar/Navbar';
 function MyFridge() {
     return (
         <Box>
-            <Navbar page="Mit køleskab" />
+            <Navbar />
 
             <Box id="content" style={{ padding: '0px 15px 15px 15px' }}>
-                hej
+                <Box>
+                    <Typography variant="h5">
+                        Dit køleskab
+                    </Typography>
+                </Box>
             </Box>
         </Box>
     );
