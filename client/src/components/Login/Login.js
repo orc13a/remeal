@@ -28,9 +28,9 @@ function Login() {
                                 Log ind
                             </Typography>
                             <form>
-                                <TextField required type="email*" fullWidth autoFocus id="outlined-basic" label="E-mail" color="secondary" variant="outlined" />
+                                <TextField required type="email" fullWidth autoFocus id="outlined-basic" label="E-mail" color="secondary" variant="outlined" />
                                 <br/><br/>
-                                <TextField required type="password*" fullWidth id="outlined-basic" label="Adgangskode" color="secondary" variant="outlined" />
+                                <TextField required type="password" fullWidth id="outlined-basic" label="Adgangskode" color="secondary" variant="outlined" />
                                 <br/><br/>
                                 <Button type="submit" size="large" fullWidth variant="contained" color="primary">Log ind</Button>
                                 <br/><br/>

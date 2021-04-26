@@ -13,6 +13,8 @@ import KitchenIcon from '@material-ui/icons/Kitchen';
 import { Link } from 'react-router-dom';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import DnsIcon from '@material-ui/icons/Dns';
+import Badge from '@material-ui/core/Badge';
 
 // import theme from '../../../theme';
 
@@ -54,6 +56,16 @@ export default function TemporaryDrawer() {
                 <ListItem button>
                     <ListItemIcon><KitchenIcon /></ListItemIcon>
                     <ListItemText>Mit køleskab</ListItemText>
+                </ListItem>
+            </Link>
+            <Link to="/recipes" style={{ color: 'black' }}>
+                <ListItem button>
+                    <ListItemIcon>
+                      <Badge variant="dot" invisible={true} color="primary">
+                        <DnsIcon />
+                      </Badge>
+                    </ListItemIcon>
+                    <ListItemText>Mine opskrifter</ListItemText>
                 </ListItem>
             </Link>
             <Link to="profil" style={{ color: 'black' }}>
