@@ -25,17 +25,23 @@ function Login() {
                     <Card variant="outlined">
                         <CardContent>
                             <Typography className={ classes.title }>
-                                Log ind
+                                Opret bruger
                             </Typography>
                             <form>
-                                <TextField required type="email*" fullWidth autoFocus id="outlined-basic" label="E-mail" color="secondary" variant="outlined" />
+                                <TextField required type="text" fullWidth autoFocus id="outlined-basic" label="Fornavn" color="secondary" variant="outlined" />
                                 <br/><br/>
-                                <TextField required type="password*" fullWidth id="outlined-basic" label="Adgangskode" color="secondary" variant="outlined" />
+                                <TextField required type="text" fullWidth id="outlined-basic" label="Efternavn" color="secondary" variant="outlined" />
                                 <br/><br/>
-                                <Button type="submit" size="large" fullWidth variant="contained" color="primary">Log ind</Button>
+                                <TextField required type="email" fullWidth id="outlined-basic" label="E-mail" color="secondary" variant="outlined" />
                                 <br/><br/>
-                                <Link to="/signup">
-                                    <Button color="secondary" ize="large" fullWidth>Opret bruger</Button>
+                                <TextField required type="password" fullWidth id="outlined-basic" label="Adgangskode" color="secondary" variant="outlined" />
+                                <br/><br/>
+                                <TextField required type="password" fullWidth id="outlined-basic" label="Adgangskode gentag" color="secondary" variant="outlined" />
+                                <br/><br/>
+                                <Button type="submit" size="large" fullWidth variant="contained" color="primary">Opret</Button>
+                                <br/><br/>
+                                <Link to="/login">
+                                    <Button color="secondary" ize="large" fullWidth>Log ind</Button>
                                 </Link>
                             </form>
                         </CardContent>
