@@ -3,7 +3,7 @@ import { Typography, Box } from '@material-ui/core/';
 
 import Navbar from '../Navbar/Navbar';
 
-function MyFridge() {
+function Profil() {
     return (
         <Box>
             <Navbar />
@@ -11,7 +11,7 @@ function MyFridge() {
             <Box id="content" style={{ padding: '0px 15px 15px 15px' }}>
                 <Box>
                     <Typography variant="h5">
-                        Mit køleskab
+                        Profil
                     </Typography>
                 </Box>
             </Box>
@@ -19,4 +19,4 @@ function MyFridge() {
     );
 }
 
-export default MyFridge;
+export default Profil;

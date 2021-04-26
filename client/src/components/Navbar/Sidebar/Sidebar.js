@@ -2,22 +2,23 @@ import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import { IconButton } from '@material-ui/core';
 import KitchenIcon from '@material-ui/icons/Kitchen';
 import { Link } from 'react-router-dom';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
+// import theme from '../../../theme';
 
 const useStyles = makeStyles({
   list: {
-    width: 250,
+    width: 275,
   },
   fullList: {
     width: 'auto',
@@ -48,14 +49,25 @@ export default function TemporaryDrawer() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
-          <Link to="/">
-            <ListItem button key={1}>
-                <ListItemIcon><KitchenIcon /></ListItemIcon>
-                <ListItemText>Mit køleskab</ListItemText>
+        <List>
+            <Link to="/" style={{ color: 'black' }}>
+                <ListItem button>
+                    <ListItemIcon><KitchenIcon /></ListItemIcon>
+                    <ListItemText>Mit køleskab</ListItemText>
+                </ListItem>
+            </Link>
+            <Link to="profil" style={{ color: 'black' }}>
+                <ListItem button>
+                    <ListItemIcon><AccountBoxIcon /></ListItemIcon>
+                    <ListItemText>Profil</ListItemText>
+                </ListItem>
+            </Link>
+            <Divider />
+            <ListItem button>
+                <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+                <ListItemText>Log ud</ListItemText>
             </ListItem>
-          </Link>
-      </List>
+        </List>
     </div>
   );
 

@@ -1,5 +1,4 @@
-import { Typography, Box, Grid, Button, IconButton } from '@material-ui/core/';
-import MenuIcon from '@material-ui/icons/Menu';
+import { Typography, Box, Grid } from '@material-ui/core/';
 import { Link } from 'react-router-dom';
 
 import Sidebar from './Sidebar/Sidebar';

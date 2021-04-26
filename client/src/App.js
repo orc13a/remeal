@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
 import MyFridge from './components/MyFridge/MyFridge';
+import Profil from './components/Profil/Profil';
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
         </Route>
         <Route path="/" exact>
           <MyFridge />
+        </Route>
+        <Route path="/profil" exact>
+          <Profil />
         </Route>
       </Switch>
     </Router>
