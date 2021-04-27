@@ -4,8 +4,10 @@
 
 // npm packages
 const express = require('express');
-const router = express.Router();
-const bodyParser = require('body-parser');
+const api = express.Router();
+const { v4: uuidv4 } = require('uuid');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 // Schemas
 const userSchema = require('../models/user.model');
@@ -15,7 +17,7 @@ const userSchema = require('../models/user.model');
 // ----------------------------------------
 
 // route will be: /all
-router.get('/all', async (req, res) => {
+api.get('/all', async (req, res) => {
     try {
         const allUsers = await userSchema.find();
         res.status(200).json(allUsers);
@@ -24,7 +26,7 @@ router.get('/all', async (req, res) => {
     }
 });
 
-router.get('/:userId', async (req, res) => {
+api.get('/:userId', async (req, res) => {
     try {
         const userId = req.params;
         const user = await userSchema.find({ userId: userId });
@@ -39,17 +41,36 @@ router.get('/:userId', async (req, res) => {
 // ----------------------------------------
 
 // route will be: /users/add
-router.post('/users/add', async (req, res) => {
-    // const user = req.body;
-    // const newUser = new userSchema(user);
 
-    // try {
-    //     await newUser.save();
+api.post('/create', async (req, res) => {
+    let newUserObj = {
+        userId: uuidv4(),
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        fullName: `${req.body.firstName} ${req.body.lastName}`,
+        email: req.body.email,
+        password: req.body.password,
+    }
+    
+    if (!newUserObj.email || newUserObj.email === undefined || newUserObj.email.length < 5 || newUserObj.firstName.length < 2) {
+        res.status(409).json({ message: `Missing credentials` });
+    } else {
+        bcrypt.hash(newUserObj.password, saltRounds, async function(err, hashedPwd) {
+            if (err) { res.status(409).json({ message: err }); }
+            
+            newUserObj.password = hashedPwd;
 
-    //     res.status(200).json(newUser);
-    // } catch (error) {
-    //     res.status(409).json({ "error": error.messages });
-    // }
+            // const newUser = new userSchema(newUserObj);
+
+            try {
+                await new userSchema(newUserObj).save();
+
+                res.status(201).json({ message: `User has been created successfully` });
+            } catch (error) {
+                res.status(406).json({ message: error });
+            }
+        });
+    }
 });
 
 // ----------------------------------------
@@ -57,4 +78,4 @@ router.post('/users/add', async (req, res) => {
 // ----------------------------------------
 
 // Export we can be used outside this file
-module.exports = router;
+module.exports = api;

@@ -1,7 +1,7 @@
 const userReducer = (users = [], action) => {
     switch (action.type) {
         case 'CREATE':
-            return action.payload;
+            return [...users, action.payload];
         case 'ERROR':
             return action.payload;
         default:

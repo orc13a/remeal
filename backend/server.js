@@ -11,16 +11,18 @@ const cors = require('cors');
 require('dotenv').config();
 
 // Environment variables
-const port = process.env.PORT || 8899;
+const port = process.env.PORT || 9955;
 const dbConStr = process.env.DBCONSTR;
 
 const server = express();
 
 // Middleware
+server.use(bodyParser.json());
 server.use(cors());
 
 server.use('/users', require('./routes/users')); // All routs /users
 
+// If there is no route for what the user has requested for
 server.get('*', (req, res) => {
     res.status(404).json({ message: '404 - Not found' });
 });

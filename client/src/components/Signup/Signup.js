@@ -1,6 +1,10 @@
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { CardContent, Card, Container, Button, Grid, Typography, TextField } from '@material-ui/core/';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+
+import { createUser } from '../../actions/users';
 
 const useStyles = makeStyles({
     root: {
@@ -15,8 +19,29 @@ const useStyles = makeStyles({
     }
 });
 
-function Login() {
+function Signup() {
     const classes = useStyles();
+
+    const [userCreated, setUserCreated] = useState(false);
+    const [userData, setUserData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+    });
+
+    const dispatch = useDispatch();
+    //const res = useSelector((state) => state.users);
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(createUser(userData));
+        setUserCreated(true);
+    }
+
+    if(userCreated){
+        return <Redirect to="/login" />
+    }
 
     return (
         <Grid container spacing={0} alignItems="center" justify="center" style={{ minHeight: '100vh' }}>
@@ -27,16 +52,16 @@ function Login() {
                             <Typography className={ classes.title }>
                                 Opret bruger
                             </Typography>
-                            <form onSubmit="">
-                                <TextField name="signupFirstName" required type="text" fullWidth autoFocus id="outlined-basic" label="Fornavn" color="secondary" variant="outlined" />
+                            <form onSubmit={ handleSubmit }>
+                                <TextField onChange={ (e) => setUserData({ ...userData, firstName: e.target.value }) } value={ userData.firstName } name="signupFirstName" required type="text" fullWidth autoFocus id="outlined-basic-firstname" label="Fornavn" color="secondary" variant="outlined" />
                                 <br/><br/>
-                                <TextField name="signupLastName" required type="text" fullWidth id="outlined-basic" label="Efternavn" color="secondary" variant="outlined" />
+                                <TextField onChange={ (e) => setUserData({ ...userData, lastName: e.target.value }) } value={ userData.lastName } name="signupLastName" required type="text" fullWidth id="outlined-basic-lastname" label="Efternavn" color="secondary" variant="outlined" />
                                 <br/><br/>
-                                <TextField name="signupEmail" required type="email" fullWidth id="outlined-basic" label="E-mail" color="secondary" variant="outlined" />
+                                <TextField onChange={ (e) => setUserData({ ...userData, email: e.target.value }) } value={ userData.email } name="signupEmail" required type="email" fullWidth id="outlined-basic-email" label="E-mail" color="secondary" variant="outlined" />
                                 <br/><br/>
-                                <TextField name="signupPassword" required type="password" fullWidth id="outlined-basic" label="Adgangskode" color="secondary" variant="outlined" />
+                                <TextField onChange={ (e) => setUserData({ ...userData, password: e.target.value }) } value={ userData.password } name="signupPassword" required type="password" fullWidth id="outlined-basic-password" label="Adgangskode" color="secondary" variant="outlined" />
                                 <br/><br/>
-                                <TextField name="signupPasswordRepeat" required type="password" fullWidth id="outlined-basic" label="Adgangskode gentag" color="secondary" variant="outlined" />
+                                <TextField name="signupPasswordRepeat" required type="password" fullWidth id="outlined-basic-password-repeat" label="Gentag adgangskode" color="secondary" variant="outlined" />
                                 <br/><br/>
                                 <Button type="submit" size="large" fullWidth variant="contained" color="primary">Opret</Button>
                                 <br/><br/>
@@ -52,4 +77,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default Signup;
