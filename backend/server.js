@@ -21,6 +21,10 @@ server.use(cors());
 
 server.use('/users', require('./routes/users')); // All routs /users
 
+server.get('*', (req, res) => {
+    res.status(404).json({ message: '404 - Not found' });
+});
+
 // Database connection (mongoDB)
 mongoose.connect(dbConStr, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => server.listen(port, () => { // On connection

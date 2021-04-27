@@ -5,6 +5,7 @@
 // npm packages
 const express = require('express');
 const router = express.Router();
+const bodyParser = require('body-parser');
 
 // Schemas
 const userSchema = require('../models/user.model');
@@ -18,6 +19,16 @@ router.get('/all', async (req, res) => {
     try {
         const allUsers = await userSchema.find();
         res.status(200).json(allUsers);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+});
+
+router.get('/:userId', async (req, res) => {
+    try {
+        const userId = req.params;
+        const user = await userSchema.find({ userId: userId });
+        res.status(200).json(user);
     } catch (error) {
         res.status(404).json({ message: error.message });
     }

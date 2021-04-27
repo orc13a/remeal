@@ -27,16 +27,16 @@ function Login() {
                             <Typography className={ classes.title }>
                                 Opret bruger
                             </Typography>
-                            <form>
-                                <TextField required type="text" fullWidth autoFocus id="outlined-basic" label="Fornavn" color="secondary" variant="outlined" />
+                            <form onSubmit="">
+                                <TextField name="signupFirstName" required type="text" fullWidth autoFocus id="outlined-basic" label="Fornavn" color="secondary" variant="outlined" />
                                 <br/><br/>
-                                <TextField required type="text" fullWidth id="outlined-basic" label="Efternavn" color="secondary" variant="outlined" />
+                                <TextField name="signupLastName" required type="text" fullWidth id="outlined-basic" label="Efternavn" color="secondary" variant="outlined" />
                                 <br/><br/>
-                                <TextField required type="email" fullWidth id="outlined-basic" label="E-mail" color="secondary" variant="outlined" />
+                                <TextField name="signupEmail" required type="email" fullWidth id="outlined-basic" label="E-mail" color="secondary" variant="outlined" />
                                 <br/><br/>
-                                <TextField required type="password" fullWidth id="outlined-basic" label="Adgangskode" color="secondary" variant="outlined" />
+                                <TextField name="signupPassword" required type="password" fullWidth id="outlined-basic" label="Adgangskode" color="secondary" variant="outlined" />
                                 <br/><br/>
-                                <TextField required type="password" fullWidth id="outlined-basic" label="Adgangskode gentag" color="secondary" variant="outlined" />
+                                <TextField name="signupPasswordRepeat" required type="password" fullWidth id="outlined-basic" label="Adgangskode gentag" color="secondary" variant="outlined" />
                                 <br/><br/>
                                 <Button type="submit" size="large" fullWidth variant="contained" color="primary">Opret</Button>
                                 <br/><br/>
