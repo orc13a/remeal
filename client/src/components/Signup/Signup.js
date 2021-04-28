@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { CardContent, Card, Container, Button, Grid, Typography, TextField } from '@material-ui/core/';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { createUser } from '../../actions/users';
 
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 function Signup() {
     const classes = useStyles();
 
-    const [userCreated, setUserCreated] = useState(false);
+    //const [userCreated, setUserCreated] = useState(false);
     const [userData, setUserData] = useState({
         firstName: '',
         lastName: '',
@@ -36,12 +36,12 @@ function Signup() {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(createUser(userData));
-        setUserCreated(true);
+       // setUserCreated(true);
     }
 
-    if(userCreated){
-        return <Redirect to="/login" />
-    }
+    // if(userCreated){
+    //     return <Redirect to="/login" />
+    // }
 
     return (
         <Grid container spacing={0} alignItems="center" justify="center" style={{ minHeight: '100vh' }}>

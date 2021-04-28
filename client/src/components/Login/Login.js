@@ -1,6 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { CardContent, Card, Container, Button, Grid, Typography, TextField } from '@material-ui/core/';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+
+import { loginUser } from '../../actions/users'; 
 
 const useStyles = makeStyles({
     root: {
@@ -17,6 +21,17 @@ const useStyles = makeStyles({
 
 function Login() {
     const classes = useStyles();
+    const [userData, setUserData] = useState({
+        email: '',
+        password: '',
+    });
+
+    const dispatch = useDispatch();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(loginUser(userData));
+    }
 
     return (
         <Grid container spacing={0} alignItems="center" justify="center" style={{ minHeight: '100vh' }}>
@@ -27,10 +42,10 @@ function Login() {
                             <Typography className={ classes.title }>
                                 Log ind
                             </Typography>
-                            <form>
-                                <TextField required type="email" fullWidth autoFocus id="outlined-basic" label="E-mail" color="secondary" variant="outlined" />
+                            <form onSubmit={ handleSubmit }>
+                                <TextField onChange={ (e) => setUserData({ ...userData, email: e.target.value }) } value={ userData.email } required type="email" fullWidth autoFocus id="outlined-basic-email" label="E-mail" color="secondary" variant="outlined" />
                                 <br/><br/>
-                                <TextField required type="password" fullWidth id="outlined-basic" label="Adgangskode" color="secondary" variant="outlined" />
+                                <TextField onChange={ (e) => setUserData({ ...userData, password: e.target.value }) } value={ userData.password } required type="password" fullWidth id="outlined-basic-password" label="Adgangskode" color="secondary" variant="outlined" />
                                 <br/><br/>
                                 <Button type="submit" size="large" fullWidth variant="contained" color="primary">Log ind</Button>
                                 <br/><br/>
