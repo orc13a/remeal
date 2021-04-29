@@ -5,7 +5,6 @@
 // npm packages
 const express = require('express');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser')
 const mongoose = require('mongoose');
 const cors = require('cors');
 
@@ -19,10 +18,10 @@ const server = express();
 
 // Middleware
 server.use(bodyParser.json());
-server.use(cookieParser());
 server.use(cors());
 
 server.use('/users', require('./routes/users')); // All routs /users
+server.use('/fridge', require('./routes/fridge')); // All routs /users
 
 // If there is no route for what the user has requested for
 server.get('*', (req, res) => {

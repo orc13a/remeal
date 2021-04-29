@@ -7,7 +7,7 @@ function Navbar() {
     return (
         <Box style={{ padding: '10px 25px' }}>
             <Grid container>
-                <Grid item xs={8} justify="center">
+                <Grid item xs={8}>
                     <Link to="/">
                         <Typography style={{ lineHeight: '57px', letterSpacing: '1px' }} variant="h4" color="primary">
                                     remeal

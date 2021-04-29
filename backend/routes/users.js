@@ -102,15 +102,8 @@ api.post('/login', async (req, res) => {
             } else if (result === false) {
                 res.status(406).json({ message: 'Email or password is incorrect', type: 'error' });
             } else {
-                res.cookie('user', user);
-                res.end();
-                jwt.sign({ userId: user.userId }, 'secret', { algorithm: 'RS256' }, function(err, token) {
-                    if (err) {
-                        console.log(err);
-                        res.status(409).json({ message: 'Something happend...', type: 'error' });
-                    }   
-                    res.status(200).json({ loggedIn: user, token });
-                });
+                var token = jwt.sign({ userId: user.userId }, 'secret');
+                res.status(200).json({ loggedIn: user, token });
             }
         });
     }

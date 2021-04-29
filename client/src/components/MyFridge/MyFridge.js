@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Typography, Box } from '@material-ui/core/';
+import DateFnsUtils from '@date-io/date-fns';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Tooltip from '@material-ui/core/Tooltip';
+import { useDispatch } from 'react-redux';
 //import { makeStyles } from '@material-ui/core/styles';
 //import { Link } from 'react-router-dom';
 
@@ -19,8 +22,14 @@ import Navbar from '../Navbar/Navbar';
 //import zIndex from '@material-ui/core/styles/zIndex';
 
 function MyFridge() {
-
+    const dispatch = useDispatch();
     const [open, setOpen] = React.useState(false);
+    const [selectedDate, setSelectedDate] = React.useState(new Date());
+    const [itemData, setItemData] = useState({
+        item: '',
+        amount: 1,
+        expiryDate: selectedDate
+    });
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -29,6 +38,21 @@ function MyFridge() {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+    };
+
+    const handleChange = (e) => {
+        if (e.target.name !== undefined && e.target.name === 'item', e.target.name === 'amount', e.target.name === 'expiryDate') {
+            setItemData({...itemData, [e.target.name]: e.target.value});
+        }
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(itemData);
+    }
 
     return (
         <Box>
@@ -42,24 +66,56 @@ function MyFridge() {
                 </Box>
                 <Dialog maxWidth="xs" open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Tilføj til køleskabet</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            Udfyld så meget information som muligt om den varer du vil tilføje til dit køleskab.
-                        </DialogContentText>
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="name"
-                            label="Email Address"
-                            type="email"
-                            fullWidth
-                        />
-                    </DialogContent>
+                    <form onSubmit={ handleSubmit }>
+                        <DialogContent>
+                            <DialogContentText>
+                                Udfyld så meget information som muligt om den varer du vil tilføje til dit køleskab.
+                            </DialogContentText>
+                            <TextField
+                                autoFocus
+                                margin="normal"
+                                id="item"
+                                label="Genstand"
+                                type="text"
+                                fullWidth
+                                required
+                                name="item"
+                                onChange={ (e) => setItemData({...itemData, item: e.target.value}) }
+                            />
+                            <TextField
+                                margin="none"
+                                id="item"
+                                label="Antal"
+                                name="amount"
+                                type="number"
+                                defaultValue={1}
+                                fullWidth
+                                onChange={ (e) => setItemData({...itemData, amount: e.target.value}) }
+                            />
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <KeyboardDatePicker
+                                fullWidth
+                                disableToolbar
+                                name="expiryDate"
+                                variant="inline"
+                                format="dd/MM/yyyy"
+                                margin="normal"
+                                id="date-picker-inline"
+                                label="Udløbsdato"
+                                value={selectedDate}
+                                onChange={(e) => setItemData({...itemData, expiryDate: e.target.value})}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                }}
+                                />
+                            </MuiPickersUtilsProvider>
+                        </DialogContent>
+                    </form>
                     <DialogActions>
                         <Button onClick={handleClose} color="primary">
                             Annullere
                         </Button>
-                        <Button onClick={handleClose} color="primary">
+                        <Button onClick={handleSubmit} color="primary">
                             Tilføj
                         </Button>
                     </DialogActions>
