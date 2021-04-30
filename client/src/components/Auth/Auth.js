@@ -85,7 +85,7 @@ function Auth() {
                                         <TextField type="password" onChange={ handleChange } name="passwordRepat" label="Gentag adgangskode *" variant="outlined" fullWidth />
                                     </Box>
                                     <br />
-                                    <Button color="secondary" type="submit" size="large" fullWidth variant="contained" color="primary">
+                                    <Button type="submit" size="large" fullWidth variant="contained" color="primary">
                                         { formType ? 'Opret profil' : 'Log ind' }
                                     </Button>
                                 </form>
