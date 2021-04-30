@@ -10,7 +10,7 @@ function Navbar() {
     const cookies = new Cookies();
     const [showMenu, setShowMenu] = useState(false);
 
-    if (cookies.get('userLoggedIn') !== undefined && showMenu == false) {
+    if (cookies.get('userLoggedIn') !== undefined && showMenu === false) {
         setShowMenu(true);
     }
 
