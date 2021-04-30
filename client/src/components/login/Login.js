@@ -1,6 +1,12 @@
 import { Box, CardContent, Card, Container, Button, Grid, Typography, TextField, Divider } from '@material-ui/core/';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
+import Cookies from 'universal-cookie';
+import { useHistory } from 'react-router-dom';
+
+import { signupUser } from '../../actions/signupUser';
+import { loginUser } from '../../actions/loginUser';
 
 const userloginDataDefault = {
     email: '',
@@ -15,10 +21,13 @@ const userSignupDataDefault = {
     passwordRepat: ''
 }
 
-function Auth() {
+function Login() {
     const dispatch = useDispatch();
+    const history = useHistory();
+    const cookies = new Cookies();
 
     const [formType, setformType] = useState(false);
+    const [inProgress, setInProgress] = useState(false);
     const [userLoginData, setUserLoginData] = useState(userloginDataDefault);
     const [userSignupData, setUserSignupData] = useState(userSignupDataDefault);
     let changeFormBtn;
@@ -52,9 +61,16 @@ function Auth() {
     const onSubmit = (e) => {
         e.preventDefault();
         if (formType === false) {
-            //dispatch(loginUser(userLoginData));
+            setInProgress(true);
+            dispatch(loginUser(userLoginData));
         } else {
-            //dispatch(signupUser(userSignupData));
+            setInProgress(true);
+            dispatch(signupUser(userSignupData));
+        }
+
+        if (cookies.get('userLoggedIn') !== undefined) {
+            history.push('/myFridge');
+            setInProgress(false);
         }
     };
 
@@ -64,6 +80,9 @@ function Auth() {
                 <Container maxWidth="xs">
                     <Grid item xs={true}>
                         <Card variant="outlined">
+                        <Box hidden={ !inProgress }>
+                            <LinearProgress />
+                        </Box>
                             <CardContent>
                                 <Typography style={{ fontSize: '30px', textAlign: 'center', fontWeight: 500 }} gutterBottom>
                                     { formType ? 'Opret profil' : 'Log ind' }
@@ -102,4 +121,4 @@ function Auth() {
     );
 }
 
-export default Auth;
+export default Login;

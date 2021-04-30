@@ -9,8 +9,10 @@ import RestaurantIcon from '@material-ui/icons/Restaurant';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
+import Cookies from 'universal-cookie';
 
 import styles from './Sidenav.module.css';
+import Auth from '../../../Auth/Auth';
 
 const useStyles = makeStyles({
   list: {
@@ -22,6 +24,9 @@ const useStyles = makeStyles({
 });
 
 function Sidenav() {
+    Auth();
+
+    const cookies = new Cookies();
     const classes = useStyles();
     const [state, setState] = React.useState({
         right: false,
@@ -78,7 +83,7 @@ function Sidenav() {
                     </ListItem>
                 </Link>
                 <Divider />
-                <ListItem button key="logout">
+                <ListItem button key="logout" onClick={ () => { cookies.remove('userLoggedIn') } }>
                     <ListItemIcon><ExitToAppIcon /></ListItemIcon>
                     <ListItemText>Log ud</ListItemText>
                 </ListItem>
