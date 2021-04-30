@@ -1,34 +1,24 @@
-// import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import logo from './logo.svg';
+import './App.css';
 
-import Navbar from './components/Navbar/Navbar';
-import Frontpage from './components/Frontpage/Frontpage';
-import Login from './components/Login/Login';
-import Signup from './components/Signup/Signup';
-
-// Dette er vores app og der som vil blive vist i din browser
-// Dette er et "root component"
 function App() {
   return (
-    <Router>
-      <div className="contentContainer">
-        <Navbar />
-        <div className="content">
-          <Switch>
-            <Route path="/" exact>
-              <Frontpage />
-            </Route>
-            <Route path="/login" exact>
-              <Login />
-            </Route>
-            <Route path="/signup" exact>
-              <Signup />
-            </Route>
-          </Switch> 
-        </div>
-      </div>
-    </Router>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
   );
 }
 
