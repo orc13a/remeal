@@ -74,7 +74,7 @@ api.post('/login', async (req, res) => {
             if (err) { console.log(err) }
             if (result === true) {
                 var token = jwt.sign({ userId: user.userId }, 'remealSECRET');
-                res.status(200).json({ userId: user.userId, token, message: 'Bruger er blevet logget ind', type: 'success' });
+                res.status(200).json({ userId: user.userId, token, message: 'Du er blevet logget ind', type: 'success' });
             } else {
                 res.status(200).json({ message: 'E-mail eller adgangskode er forkert', type: 'error' });
             }

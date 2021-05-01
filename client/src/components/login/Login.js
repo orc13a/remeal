@@ -1,13 +1,19 @@
 import { Box, CardContent, Card, Container, Button, Grid, Typography, TextField, Divider } from '@material-ui/core/';
+import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Auth } from '../Auth/Auth';
 
-import { signupUser } from '../../actions/signupUser';
+// import { signupUser } from '../../actions/signupUser';
 import { loginUser } from '../../actions/loginUser';
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const userloginDataDefault = {
     email: '',
@@ -28,13 +34,28 @@ function Login() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    console.log(useSelector(state => state));
+    const loggedInUserState = useSelector(state => state.loginUser);
 
     const [formType, setformType] = useState(false);
     const [inProgress, setInProgress] = useState(false);
     const [userLoginData, setUserLoginData] = useState(userloginDataDefault);
     const [userSignupData, setUserSignupData] = useState(userSignupDataDefault);
+    const [alertOpen, setAlertOpen] = useState(false);
     let changeFormBtn;
+
+    useEffect(() => {
+        if (loggedInUserState.message !== undefined) {
+            setAlertOpen(true);
+        }
+    }, []);
+
+    const alertHandleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setAlertOpen(false);
+    };
 
     if (formType === false) { // False = login
         changeFormBtn = <Button onClick={ () => setformType(true) } fullWidth>Opret bruger</Button>;
@@ -67,6 +88,11 @@ function Login() {
 
     return (
         <Box>
+            <Snackbar open={ alertOpen } autoHideDuration={6000} onClose={ alertHandleClose }>
+                <Alert severity={ loggedInUserState.type }>
+                    { loggedInUserState.message }
+                </Alert>
+            </Snackbar>
             <Grid container alignItems="center" justify="center" spacing={0} style={{ minHeight: '86vh' }}>
                 <Container maxWidth="xs">
                     <Grid item xs={true}>

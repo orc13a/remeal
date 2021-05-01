@@ -1,10 +1,12 @@
-import { LOGIN, LOGOUT } from '../actionTypes';
+import { ERROR, LOGIN, LOGOUT } from '../actionTypes';
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
 const loginUser = (user = {}, action) => {
     switch (action.type) {
+        case ERROR: 
+            return action.payload;
         case LOGIN:
             //return {...user, user: action.payload};
             user = action.payload;
@@ -16,7 +18,7 @@ const loginUser = (user = {}, action) => {
         case LOGOUT:
             cookies.remove('userLoggedIn');
             return { 
-                message: 'Du er blevet logget ud', type: 'succes'
+                message: 'Du er blevet logget ud', type: 'success'
             };
         default:
             return user;

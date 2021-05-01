@@ -1,5 +1,5 @@
-import * as api from '../api';
-import { LOGIN, LOGOUT } from '../actionTypes';
+// import * as api from '../api';
+import { LOGOUT } from '../actionTypes';
 
 export const logoutUser = (history) => async (dispatch) => {
     try {
