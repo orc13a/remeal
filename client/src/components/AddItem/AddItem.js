@@ -12,11 +12,7 @@ import { useState } from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
 import DateFnsUtils from '@date-io/date-fns';
 import deLocale from "date-fns/locale/da";
-import {
-    MuiPickersUtilsProvider,
-    KeyboardTimePicker,
-    KeyboardDatePicker,
-  } from '@material-ui/pickers';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 
 function AddItem() {
     const [open, setOpen] = useState(false);
@@ -37,13 +33,13 @@ function AddItem() {
 
     return (
         <Box>
-            <Tooltip arrow title="Tilføj varer til dit køleskab" placement="top">
+            <Tooltip arrow title="Tilføj en vare til køleskabet" placement="top">
                 <Fab onClick={ handleClickOpen } style={{ position: 'absolute', 'bottom': '25px', right: '25px' }} size="medium" color="primary" aria-label="addItem">
                     <AddIcon />
                 </Fab>
             </Tooltip>
             <Dialog maxWidth="xs" open={ open } onClose={ handleClose } aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Tilføj varer</DialogTitle>
+                <DialogTitle id="form-dialog-title">Tilføj en vare</DialogTitle>
                 <DialogContent>
                 {/* <DialogContentText>
                     Tekst

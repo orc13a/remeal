@@ -11,6 +11,7 @@ import RestaurantIcon from '@material-ui/icons/Restaurant';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
+import Badge from '@material-ui/core/Badge';
 
 import styles from './Sidenav.module.css';
 // import { Auth } from '../../Auth/Auth';
@@ -62,7 +63,11 @@ function Sidenav() {
                 </Link>
                 <Link to="/recipes">
                     <ListItem button key="recipes">
-                        <ListItemIcon><RestaurantIcon /></ListItemIcon>
+                        <ListItemIcon>
+                            <Badge badgeContent={1} color="primary">
+                                <RestaurantIcon />
+                            </Badge>
+                        </ListItemIcon>
                         <ListItemText>
                             <Typography color="textPrimary">Opskrifter</Typography>
                         </ListItemText>
