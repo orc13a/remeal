@@ -29,6 +29,8 @@ api.post('/signup', async (req, res) => {
 
     if (findUser !== null) {
         res.status(200).json({ message: 'E-mail allerede i brug', type: 'error' });
+    } else if (req.body.password !== req.body.passwordRepat) {
+        res.status(200).json({ message: 'Adgangskoder ikke ens', type: 'error' });
     } else {
         let newUserObj = {
             userId: uuidv4(),
@@ -38,6 +40,8 @@ api.post('/signup', async (req, res) => {
             fullName: `${req.body.firstName} ${req.body.lastName}`,
             email: req.body.email,
             password: req.body.password,
+            fridgeItems: [],
+            familyFridgeId: null 
         }
         
         if (!newUserObj.email || newUserObj.email === undefined || newUserObj.email.length < 5 || newUserObj.firstName.length < 2) {

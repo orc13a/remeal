@@ -7,6 +7,8 @@ const UserSchema = mongoose.Schema({
     fullName: String,
     email: String,
     password: String,
+    fridgeItems: Array,
+    familyFridgeId: String,
     createdAt: {
         type: Date,
         default: new Date()

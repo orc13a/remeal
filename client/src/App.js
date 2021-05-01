@@ -8,7 +8,7 @@ import MyFridge from './components/MyFridge/MyFridge';
 function App() {
   return (
     <Router>
-      <Navbar />
+      <Navbar authCheck />
       <Switch>
         <Route path="/" exact component={ Login } />
         <Route path="/myFridge" exact component={ MyFridge } />
