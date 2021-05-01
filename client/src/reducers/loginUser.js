@@ -12,7 +12,7 @@ const loginUser = (user = {}, action) => {
                 userId: user.userId,
                 token: user.token
             }, { path: '/' });
-            return user;
+            return action.payload;
         case LOGOUT:
             cookies.remove('userLoggedIn');
             return { 

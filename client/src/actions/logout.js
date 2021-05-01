@@ -1,7 +1,7 @@
 import * as api from '../api';
 import { LOGIN, LOGOUT } from '../actionTypes';
 
-export const loginUser = (history) => async (dispatch) => {
+export const logoutUser = (history) => async (dispatch) => {
     try {
         dispatch({
             type: LOGOUT,

@@ -4,9 +4,12 @@ import { useState } from 'react';
 
 import Sidebar from './Sidenav/Sidenav';
 import styles from './Navbar.module.css';
+import { Auth, IsLoggedIn } from '../Auth/Auth';
 
 function Navbar() {
-    const [showMenu, setShowMenu] = useState(false);
+    Auth(false);
+
+    // const [showMenu, setShowMenu] = useState(false);
 
     return (
         <Box className={ styles.nav }>
@@ -19,7 +22,7 @@ function Navbar() {
                     </Link>
                 </Grid>
                 <Grid item xs={4} style={{ textAlign: 'right' }} className={ styles.sidenav }>
-                    { showMenu ? <Sidebar /> : '' }
+                    { IsLoggedIn() ? <Sidebar /> : '' }
                 </Grid>
             </Grid>
         </Box>

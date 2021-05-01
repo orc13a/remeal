@@ -1,6 +1,6 @@
 import { Box, CardContent, Card, Container, Button, Grid, Typography, TextField, Divider } from '@material-ui/core/';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -28,6 +28,8 @@ function Login() {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    console.log(useSelector(state => state));
+
     const [formType, setformType] = useState(false);
     const [inProgress, setInProgress] = useState(false);
     const [userLoginData, setUserLoginData] = useState(userloginDataDefault);
@@ -48,15 +50,7 @@ function Login() {
         if (formType === false) {
             setUserLoginData({ ...userLoginData, [e.target.name]: e.target.value });
         } else {
-            if (e.target.name === 'balance') {
-                let balance = e.target.value;
-                balance = balance.replace('.', '');
-                balance = balance.replace(',', '.');
-                console.log(balance);
-                setUserSignupData({ ...userSignupData, [e.target.name]: Number(balance) });
-            } else {
-                setUserSignupData({ ...userSignupData, [e.target.name]: e.target.value });
-            }
+            setUserSignupData({ ...userSignupData, [e.target.name]: e.target.value });
         }
     }
 

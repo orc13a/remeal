@@ -8,20 +8,8 @@ export const Auth = (loginPage) => {
     const history = useHistory();
     const cookies = new Cookies();
     const loggedInUserState = useSelector(state => state.loginUser);
-    const loggedInUserCookie = cookies.get('loggedInUser');
-
-    // if (cookies.get('userLoggedIn') === undefined) {
-    //     history.push('/');
-    // }
-
-    // if (loggedInUser.token !== undefined) {
-    //     jwt.verify(loggedInUser.token, 'remealSECRET', function(err, decoded) {
-            
-    //     });
-    // } else {
-    //     history.push('/');
-    // }
-
+    const loggedInUserCookie = cookies.get('userLoggedIn');
+    
     if (loggedInUserCookie !== undefined) {
         jwt.verify(loggedInUserCookie.token, 'remealSECRET', function(err, decoded) {
             if (decoded.userId === loggedInUserCookie.userId) {
@@ -31,6 +19,22 @@ export const Auth = (loginPage) => {
             }
         });
     } else {
-        history.push('/');
+        if (loginPage === false) {
+            history.push('/');
+        }
+    }
+}
+
+export const getLoggedInUser = () => {
+    const cookies = new Cookies();
+    return cookies.get('userLoggedIn');
+}
+
+export const IsLoggedIn = () => {
+    const cookies = new Cookies();
+    if (cookies.get('userLoggedIn') === undefined) {
+        return false;
+    } else {
+        return true;
     }
 }

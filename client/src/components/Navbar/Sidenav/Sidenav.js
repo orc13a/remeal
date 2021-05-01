@@ -1,6 +1,8 @@
 import React from 'react';
+// import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, List, Divider, ListItem, ListItemIcon, ListItemText, IconButton, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -11,6 +13,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 
 import styles from './Sidenav.module.css';
+import { Auth } from '../../Auth/Auth';
+import { logoutUser } from '../../../actions/logout';
 
 const useStyles = makeStyles({
   list: {
@@ -22,10 +26,16 @@ const useStyles = makeStyles({
 });
 
 function Sidenav() {
+    Auth(false);
+
+    const dispatch = useDispatch();
+    const history = useHistory();
     const classes = useStyles();
     const [state, setState] = React.useState({
         right: false,
     });
+
+    console.log();
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -78,7 +88,7 @@ function Sidenav() {
                     </ListItem>
                 </Link>
                 <Divider />
-                <ListItem button key="logout">
+                <ListItem button key="logout" onClick={ () => { dispatch(logoutUser(history)) } }>
                     <ListItemIcon><ExitToAppIcon /></ListItemIcon>
                     <ListItemText>Log ud</ListItemText>
                 </ListItem>
