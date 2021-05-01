@@ -1,15 +1,27 @@
 import { Typography, Box, Grid } from '@material-ui/core/';
 import { Link } from 'react-router-dom';
-// import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Sidebar from './Sidenav/Sidenav';
 import styles from './Navbar.module.css';
 import { Auth, IsLoggedIn } from '../Auth/Auth';
+import { useSelector } from 'react-redux';
 
 function Navbar() {
     Auth(false);
 
-    // const [showMenu, setShowMenu] = useState(false);
+    const [showMenu, setShowMenu] = useState(false);
+    const authCheck = useSelector(state => state.authCheck);
+
+    useEffect(() => {
+        // if (IsLoggedIn() === true) {
+        //     setShowMenu(true);
+        // }
+        setShowMenu(authCheck);
+    }, []);
+
+    // ## Mærkeligt - menu iconet kommer efter login og forsvinder efter logout, kun hvis denne linje er her
+    // console.log(useSelector(state => state));
 
     return (
         <Box className={ styles.nav }>
@@ -22,7 +34,7 @@ function Navbar() {
                     </Link>
                 </Grid>
                 <Grid item xs={4} style={{ textAlign: 'right' }} className={ styles.sidenav }>
-                    { IsLoggedIn() ? <Sidebar /> : '' }
+                    { showMenu ? <Sidebar /> : '' }
                 </Grid>
             </Grid>
         </Box>

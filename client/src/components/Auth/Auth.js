@@ -3,8 +3,11 @@ import { useHistory } from 'react-router-dom';
 // import { useSelector } from 'react-redux'
 import jwt from 'jsonwebtoken';
 import Cookies from 'universal-cookie';
+import { useDispatch } from 'react-redux';
+import { authCheck } from '../../actions/authCheck';
 
 export const Auth = (loginPage) => {
+    const dispatch = useDispatch();
     const history = useHistory();
     const cookies = new Cookies();
     // const loggedInUserState = useSelector(state => state.loginUser);
@@ -16,6 +19,7 @@ export const Auth = (loginPage) => {
                 if (loginPage === true) {
                    history.push('/myFridge'); 
                 }
+                dispatch(authCheck());
             }
         });
     } else {
@@ -23,6 +27,10 @@ export const Auth = (loginPage) => {
             history.push('/');
         }
     }
+
+    cookies.addChangeListener('', (name) => {
+        console.log(name);
+    });
 }
 
 export const getLoggedInUser = () => {

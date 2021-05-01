@@ -1,5 +1,6 @@
 import * as api from '../api';
 import { ERROR, LOGIN } from '../actionTypes';
+import { authCheck } from './authCheck';
 
 export const loginUser = (userData, history, formType) => async (dispatch) => {
     try {
@@ -15,6 +16,7 @@ export const loginUser = (userData, history, formType) => async (dispatch) => {
                     type: LOGIN,
                     payload: data,
                 });
+                dispatch(authCheck());
             }
         } else { // Signup
             const { data } = await api.signupUser(userData);
@@ -28,6 +30,7 @@ export const loginUser = (userData, history, formType) => async (dispatch) => {
                     type: LOGIN,
                     payload: data,
                 });
+                dispatch(authCheck());
             }
         }
         history.push('/myFridge');

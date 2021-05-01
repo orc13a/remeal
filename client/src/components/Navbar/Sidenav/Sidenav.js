@@ -13,7 +13,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 
 import styles from './Sidenav.module.css';
-import { Auth } from '../../Auth/Auth';
+// import { Auth } from '../../Auth/Auth';
 import { logoutUser } from '../../../actions/logout';
 
 const useStyles = makeStyles({
@@ -26,7 +26,6 @@ const useStyles = makeStyles({
 });
 
 function Sidenav() {
-    Auth(false);
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -34,8 +33,6 @@ function Sidenav() {
     const [state, setState] = React.useState({
         right: false,
     });
-
-    console.log();
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
