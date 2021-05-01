@@ -2,8 +2,9 @@ import { Box, CardContent, Card, Container, Button, Grid, Typography, TextField,
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import Cookies from 'universal-cookie';
 import { useHistory } from 'react-router-dom';
+
+import { Auth } from '../Auth/Auth';
 
 import { signupUser } from '../../actions/signupUser';
 import { loginUser } from '../../actions/loginUser';
@@ -22,9 +23,10 @@ const userSignupDataDefault = {
 }
 
 function Login() {
+    Auth(true);
+
     const dispatch = useDispatch();
     const history = useHistory();
-    const cookies = new Cookies();
 
     const [formType, setformType] = useState(false);
     const [inProgress, setInProgress] = useState(false);
@@ -62,15 +64,10 @@ function Login() {
         e.preventDefault();
         if (formType === false) {
             setInProgress(true);
-            dispatch(loginUser(userLoginData));
+            dispatch(loginUser(userLoginData, history, formType));
         } else {
             setInProgress(true);
-            dispatch(signupUser(userSignupData));
-        }
-
-        if (cookies.get('userLoggedIn') !== undefined) {
-            history.push('/myFridge');
-            setInProgress(false);
+            dispatch(loginUser(userSignupData, history, formType));
         }
     };
 

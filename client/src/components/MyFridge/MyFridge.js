@@ -1,8 +1,12 @@
 import { Box } from '@material-ui/core';
-import Auth from '../../Auth/Auth';
+import Cookies from 'universal-cookie';
+
+import { Auth } from '../Auth/Auth';
 
 function MyFridge() {
-    Auth();
+    Auth(false);
+
+    const cookies = new Cookies();
 
     return (
         <Box>

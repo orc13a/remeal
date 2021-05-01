@@ -1,18 +1,12 @@
 import { Typography, Box, Grid } from '@material-ui/core/';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import Cookies from 'universal-cookie';
 
 import Sidebar from './Sidenav/Sidenav';
 import styles from './Navbar.module.css';
 
 function Navbar() {
-    const cookies = new Cookies();
     const [showMenu, setShowMenu] = useState(false);
-
-    if (cookies.get('userLoggedIn') !== undefined && showMenu === false) {
-        setShowMenu(true);
-    }
 
     return (
         <Box className={ styles.nav }>

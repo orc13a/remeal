@@ -52,7 +52,7 @@ api.post('/signup', async (req, res) => {
 
                 try {
                     await new userSchema(newUserObj).save();
-                    var token = jwt.sign({ userId: newUserObj.userId }, 'summaSECRET');
+                    var token = jwt.sign({ userId: newUserObj.userId }, 'remealSECRET');
                     res.status(200).json({ userId: newUserObj.userId, token, message: 'Bruger oprettet succesfuldt', type: 'success' });
                 } catch (error) {
                     console.log(error);
@@ -73,7 +73,7 @@ api.post('/login', async (req, res) => {
         bcrypt.compare(req.body.password, user.password, function(err, result) {
             if (err) { console.log(err) }
             if (result === true) {
-                var token = jwt.sign({ userId: user.userId }, 'summaSECRET');
+                var token = jwt.sign({ userId: user.userId }, 'remealSECRET');
                 res.status(200).json({ userId: user.userId, token, message: 'Bruger er blevet logget ind', type: 'success' });
             } else {
                 res.status(200).json({ message: 'E-mail eller adgangskode er forkert', type: 'error' });
