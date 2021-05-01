@@ -2,6 +2,7 @@ import { Box } from '@material-ui/core';
 // import Cookies from 'universal-cookie';
 
 import { Auth } from '../Auth/Auth';
+import AddItem from '../../components/AddItem/AddItem';
 
 function MyFridge() {
     Auth(false);
@@ -9,6 +10,7 @@ function MyFridge() {
     return (
         <Box>
             Home
+            <AddItem />
         </Box>
     );
 }
