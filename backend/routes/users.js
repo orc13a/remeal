@@ -17,8 +17,6 @@ const userSchema = require('../models/user.model');
 // GET requests
 // ----------------------------------------
 
-
-
 // ----------------------------------------
 // POST requests
 // ----------------------------------------
@@ -72,7 +70,7 @@ api.post('/login', async (req, res) => {
     const user = await userSchema.findOne({ email: email });
 
     if (user === null) {
-        res.status(200).json({ message: 'Ingen bruger med den e-mail', type: 'error' });
+        res.status(206).json({ message: 'Ingen bruger med den e-mail', type: 'error' });
     } else {
         bcrypt.compare(req.body.password, user.password, function(err, result) {
             if (err) { console.log(err) }
@@ -80,7 +78,7 @@ api.post('/login', async (req, res) => {
                 var token = jwt.sign({ userId: user.userId }, 'remealSECRET');
                 res.status(200).json({ userId: user.userId, token, message: 'Du er blevet logget ind', type: 'success' });
             } else {
-                res.status(200).json({ message: 'E-mail eller adgangskode er forkert', type: 'error' });
+                res.status(206).json({ message: 'E-mail eller adgangskode er forkert', type: 'error' });
             }
         });
     }

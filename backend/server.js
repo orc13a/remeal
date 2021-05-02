@@ -15,13 +15,14 @@ const DBCONSTR = process.env.DBCONSTR;
 server.use(bodyParser.json());
 server.use(cors());
 
+// Routes
+server.use('/users', require('./routes/users')); // All routs /users
+server.use('/fridge', require('./routes/fridge')); // All routs /fridge
+
 // If there is no route for what the user has requested for
 server.get('*', (req, res) => {
     res.status(404).json({ message: '404 - Not found' });
 });
-
-// Routes
-server.use('/users', require('./routes/users')); // All routs /users
 
 // Database connection (mongoDB)
 mongoose.connect(DBCONSTR, { useNewUrlParser: true, useUnifiedTopology: true })
