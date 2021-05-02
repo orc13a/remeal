@@ -26,7 +26,7 @@ const itemSchema = require('../models/item.model');
 // ----------------------------------------
 
 api.post('/add', auth, (req, res) => {
-    res.status(200).json({ message: 'Goodie' });
+    res.status(200).json({ message: 'Goodie', body: req.body });
 });
 
 // ----------------------------------------

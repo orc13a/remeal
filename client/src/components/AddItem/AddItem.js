@@ -13,15 +13,27 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DateFnsUtils from '@date-io/date-fns';
 import deLocale from "date-fns/locale/da";
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../../actions/item';
+import { getLoggedInUser } from '../Auth/Auth';
+
+const defaultItemData = {
+    item: '',
+    amount: 1,
+    expirationDate: new Date()
+}
 
 function AddItem() {
+    const dispatch = useDispatch();
+
     const [open, setOpen] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    
+    // const [selectedDate, setSelectedDate] = useState(new Date());
+    const [itemData, setItemData] = useState(defaultItemData);
     
     const handleClickOpen = () => {
+        setItemData({ ...itemData, expirationDate: new Date() });
         setOpen(true);
-        setSelectedDate();
+        //setSelectedDate();
     };
 
     const handleClose = () => {
@@ -29,8 +41,24 @@ function AddItem() {
     };
 
     const handleDateChange = (date) => {
-        setSelectedDate(date);
+        // setSelectedDate(date);
+        setItemData({ ...itemData, expirationDate: date });
     };
+
+    const handleChange = (e) => {
+        if (e.target !== undefined) {
+            setItemData({ ...itemData, [e.target.name]: e.target.value });
+        }
+    }
+
+    const onSubmit = () => {
+        const allData = {
+            itemData,
+            user: getLoggedInUser()
+        }
+
+        dispatch(addItem(allData));
+    }
 
     return (
         <Box>
@@ -54,6 +82,7 @@ function AddItem() {
                     name="item"
                     placeholder="Mælk"
                     fullWidth
+                    onChange={ handleChange }
                 />
                 <TextField
                     margin="normal"
@@ -62,18 +91,19 @@ function AddItem() {
                     type="number"
                     name="amount"
                     placeholder="1"
-                    value={1}
+                    value={ itemData.amount }
                     fullWidth
+                    onChange={ handleChange }
                 />
-                <MuiPickersUtilsProvider locale={deLocale} utils={ DateFnsUtils }>
+                <MuiPickersUtilsProvider locale={ deLocale } utils={ DateFnsUtils }>
                     <KeyboardDatePicker
                     margin="normal"
                     id="expirationDate"
                     name="expirationDate"
                     label="Udløbsdato"
                     format="dd/MM/yyyy"
-                    value={selectedDate}
-                    onChange={handleDateChange}
+                    value={ itemData.expirationDate }
+                    onChange={ handleDateChange }
                     okLabel="Vælg"
                     cancelLabel="Annuller"
                     showTodayButton
@@ -89,7 +119,7 @@ function AddItem() {
                 <Button onClick={ handleClose } color="primary">
                     Annuller
                 </Button>
-                <Button onClick={ handleClose } color="primary">
+                <Button onClick={ onSubmit } color="primary">
                     Tilføj
                 </Button>
                 </DialogActions>
