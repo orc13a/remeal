@@ -87,7 +87,7 @@ function AddItem() {
 
     return (
         <Box>
-            <Snackbar open={ alertOpen } autoHideDuration={2000} onClose={ alertHandleClose }>
+            <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={ alertOpen } autoHideDuration={2000} onClose={ alertHandleClose }>
                 <Alert severity={ itemState.type }>
                     { itemState.message }
                 </Alert>

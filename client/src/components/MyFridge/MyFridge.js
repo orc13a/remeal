@@ -10,7 +10,7 @@ import Items from '../Items/Items';
 
 function LoadingBox() {
     return (
-        <Grid container spacing={0} alignItems="center" justify="center" style={{ minHeight: '64vh', textAlign: 'center' }}>
+        <Grid container spacing={0} alignItems="center" justify="center" style={{ minHeight: '60vh', textAlign: 'center' }}>
             <Container maxWidth="xs">
                 <Grid item xl={true}>
                     <CircularProgress />
@@ -23,7 +23,7 @@ function LoadingBox() {
 function FridgeContent({ items }) {
     if (items.message === 'empty') {
         return (
-            <Grid container spacing={0} alignItems="center" justify="center" style={{ minHeight: '64vh', textAlign: 'center' }}>
+            <Grid container spacing={0} alignItems="center" justify="center" style={{ minHeight: '60vh', textAlign: 'center' }}>
                 <Container maxWidth="xs">
                     <Grid item xl={true}>
                         <Typography>
@@ -58,7 +58,9 @@ function MyFridge() {
     
     return (
         <Box style={{ paddingBottom: '65px' }}>
-            Home
+            <Typography variant="h4" style={{ marginBottom: '25px', marginLeft: '5px' }}>
+                Mit køleskab
+            </Typography>
             <FridgeContent items={ usersItems } />
             <AddItem />
         </Box>

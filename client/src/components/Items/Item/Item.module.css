@@ -1,0 +1,15 @@
+.itemTable {
+    vertical-align: middle;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.itemTdTitle {
+    width: 60%;
+    padding-bottom: 15px;
+    border-bottom: 1px solid lightgray;
+}
+
+.itemTdInfo {
+    padding-top: 15px;
+}
