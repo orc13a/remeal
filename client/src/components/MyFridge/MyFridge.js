@@ -30,11 +30,11 @@ function MyFridge() {
     }, []);
 
     const usersItems = useSelector(state => state.items);
-    
+    console.log(usersItems);
     return (
         <Box>
             Home
-            { !usersItems ? <LoadingBox /> : ( 
+            { usersItems.length == 0 ? <LoadingBox /> : ( 
                 <Items items={ usersItems } />
             ) }
             <AddItem />
