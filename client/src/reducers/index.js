@@ -4,10 +4,12 @@ import { combineReducers } from 'redux';
 // import signupUser from './signupUser';
 import loginUser from './loginUser';
 import authCheck from './authCheck';
-import item from './item';
+import addItem from './addItem';
+import items from './items';
 
 export default combineReducers({
     loginUser,
     authCheck,
-    item,
+    addItem,
+    items,
 });

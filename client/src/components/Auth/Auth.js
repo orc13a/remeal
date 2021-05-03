@@ -40,9 +40,9 @@ export const getLoggedInUser = () => {
 
 export const IsLoggedIn = () => {
     const cookies = new Cookies();
-    if (cookies.get('userLoggedIn') === undefined) {
-        return false;
-    } else {
+    if (cookies.get('userLoggedIn') !== undefined) {
         return true;
+    } else {
+        return false;
     }
 }

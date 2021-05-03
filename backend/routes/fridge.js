@@ -19,7 +19,18 @@ const itemSchema = require('../models/item.model');
 // GET requests
 // ----------------------------------------
 
+api.get('/items/:userId', auth, async (req, res) => {
+    const userId = req.params.userId;
+    const token = req.headers.auth;
 
+    const allUserItems = await itemSchema.find({ userId });
+    
+    if (allUserItems.length === 0) {
+        res.status(404).json({ message: 'empty', type: 'error' });
+    } else {
+        res.status(200).json(allUserItems);
+    }
+});
 
 // ----------------------------------------
 // POST requests

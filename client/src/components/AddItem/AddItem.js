@@ -33,7 +33,7 @@ function AddItem() {
     Auth(false);
     const dispatch = useDispatch();
 
-    const itemState = useSelector(state => state.item);
+    const itemState = useSelector(state => state.addItem);
 
     const [open, setOpen] = useState(false);
     const [alertOpen, setAlertOpen] = useState(false);
@@ -41,7 +41,6 @@ function AddItem() {
     const [itemData, setItemData] = useState(defaultItemData);
     
     useEffect(() => {
-        console.log(itemState);
         if (itemState.message !== undefined) {
             setAlertOpen(true);
         }
