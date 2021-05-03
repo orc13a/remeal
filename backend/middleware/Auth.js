@@ -1,11 +1,10 @@
 var jwt = require('jsonwebtoken');
 
 const auth = async (req, res, next) => {
-    //console.log(req.headers.auth);
     let token = '';
     let userId = '';
 
-    if (req.body.token !== undefined) {
+    if (req.body.user !== undefined && req.body.user.userId !== undefined) {
         token = req.body.user.token;
         userId = req.body.user.userId;
     } else {
@@ -15,7 +14,7 @@ const auth = async (req, res, next) => {
     
     try {
         let decoded = jwt.verify(token, 'remealSECRET');
-
+        
         if (decoded.userId === userId) {
             next();
         } else {

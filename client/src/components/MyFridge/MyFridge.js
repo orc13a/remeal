@@ -6,6 +6,7 @@ import { Auth, getLoggedInUser } from '../Auth/Auth';
 import AddItem from '../../components/AddItem/AddItem';
 import { useEffect } from 'react';
 import { getItems } from '../../actions/item';
+import Items from '../Items/Items';
 
 function LoadingBox() {
     return (
@@ -29,11 +30,13 @@ function MyFridge() {
     }, []);
 
     const usersItems = useSelector(state => state.items);
-
+    
     return (
         <Box>
             Home
-            {!usersItems ? <LoadingBox /> : 'hej'}
+            { !usersItems ? <LoadingBox /> : ( 
+                <Items items={ usersItems } />
+            ) }
             <AddItem />
         </Box>
     );

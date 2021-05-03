@@ -23,7 +23,7 @@ api.get('/items/:userId', auth, async (req, res) => {
     const userId = req.params.userId;
     const token = req.headers.auth;
 
-    const allUserItems = await itemSchema.find({ userId });
+    const allUserItems = await itemSchema.find({ userId: userId });
     
     if (allUserItems.length === 0) {
         res.status(404).json({ message: 'empty', type: 'error' });
