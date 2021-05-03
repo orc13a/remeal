@@ -1,15 +1,15 @@
 import { ADD_ITEM } from '../actionTypes';
-import Cookies from 'universal-cookie';
+// import Cookies from 'universal-cookie';
 
-const cookies = new Cookies();
+// const cookies = new Cookies();
 
 const addItem = (item = {}, action) => {
     switch (action.type) {
         case ADD_ITEM:
-            return action.payload.itemData
+            return action.payload
         default:
-            return user;
+            return item;
     }
 }
 
-export default loginUser;
+export default addItem;

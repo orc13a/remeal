@@ -8,14 +8,16 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
 import DateFnsUtils from '@date-io/date-fns';
 import deLocale from "date-fns/locale/da";
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../actions/item';
-import { getLoggedInUser } from '../Auth/Auth';
+import { Auth, getLoggedInUser } from '../Auth/Auth';
+import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
 
 const defaultItemData = {
     item: '',
@@ -23,13 +25,36 @@ const defaultItemData = {
     expirationDate: new Date()
 }
 
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 function AddItem() {
+    Auth(false);
     const dispatch = useDispatch();
 
+    const itemState = useSelector(state => state.item);
+
     const [open, setOpen] = useState(false);
+    const [alertOpen, setAlertOpen] = useState(false);
     // const [selectedDate, setSelectedDate] = useState(new Date());
     const [itemData, setItemData] = useState(defaultItemData);
     
+    useEffect(() => {
+        console.log(itemState);
+        if (itemState.message !== undefined) {
+            setAlertOpen(true);
+        }
+    }, [itemState]);
+
+    const alertHandleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setAlertOpen(false);
+    };
+
     const handleClickOpen = () => {
         setItemData({ ...itemData, expirationDate: new Date() });
         setOpen(true);
@@ -58,10 +83,16 @@ function AddItem() {
         }
 
         dispatch(addItem(allData));
+        handleClose();
     }
 
     return (
         <Box>
+            <Snackbar open={ alertOpen } autoHideDuration={2000} onClose={ alertHandleClose }>
+                <Alert severity={ itemState.type }>
+                    { itemState.message }
+                </Alert>
+            </Snackbar>
             <Tooltip arrow title="Tilføj en vare til køleskabet" placement="top">
                 <Fab onClick={ handleClickOpen } style={{ position: 'absolute', 'bottom': '25px', right: '25px' }} size="medium" color="primary" aria-label="addItem">
                     <AddIcon />

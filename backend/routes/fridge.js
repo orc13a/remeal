@@ -25,8 +25,33 @@ const itemSchema = require('../models/item.model');
 // POST requests
 // ----------------------------------------
 
-api.post('/add', auth, (req, res) => {
-    res.status(200).json({ message: 'Goodie', body: req.body });
+api.post('/add', auth, async (req, res) => {
+    const token = req.body.user.token;
+    const userId = req.body.user.userId;
+
+    try {
+        let decoded = jwt.verify(token, 'remealSECRET');
+
+        if (decoded.userId === userId) {
+            let itemId = uuidv4();
+
+            let item = {
+                userId: decoded.userId,
+                itemId: itemId,
+                item: req.body.itemData.item,
+                amount: req.body.itemData.amount,
+                expirationDate: req.body.itemData.expirationDate,
+            }
+
+            await itemSchema(item).save().then(() => {
+                res.status(200).json({ message: 'Vareren tilføjet til køleskabet', type: 'success' });
+            });
+        } else {
+            res.status(409).json({ message: 'Der skete en fejl', type: 'error' });
+        }
+    } catch(err) {
+        res.status(409).json({ message: err, type: 'error' });
+    }
 });
 
 // ----------------------------------------
