@@ -19,3 +19,4 @@ export const loginUser = (user) => api.post('users/login', user);
 // allData = item, token og userId
 export const addItem = (allData) => api.post('fridge/add', allData);
 export const getUsersItems = (user) => api.get(`fridge/items/${user.user.userId}`);
+export const deleteItem = (allData) => api.post(`fridge/delete`, allData);

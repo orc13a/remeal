@@ -2,7 +2,7 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
+// import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -31,10 +31,10 @@ function Alert(props) {
 
 function AddItem() {
     Auth(false);
+
     const dispatch = useDispatch();
 
     const itemState = useSelector(state => state.addItem);
-
     const [open, setOpen] = useState(false);
     const [alertOpen, setAlertOpen] = useState(false);
     // const [selectedDate, setSelectedDate] = useState(new Date());
@@ -43,6 +43,7 @@ function AddItem() {
     useEffect(() => {
         if (itemState.message !== undefined) {
             setAlertOpen(true);
+            
         }
     }, [itemState]);
 
@@ -50,7 +51,7 @@ function AddItem() {
         if (reason === 'clickaway') {
             return;
         }
-
+        dispatch(addItem({}));
         setAlertOpen(false);
     };
 
@@ -93,7 +94,7 @@ function AddItem() {
                 </Alert>
             </Snackbar>
             <Tooltip arrow title="Tilføj en vare til køleskabet" placement="top">
-                <Fab onClick={ handleClickOpen } style={{ position: 'absolute', 'bottom': '25px', right: '25px' }} size="medium" color="primary" aria-label="addItem">
+                <Fab onClick={ handleClickOpen } style={{ position: 'fixed', 'bottom': '25px', right: '25px' }} size="medium" color="primary" aria-label="addItem">
                     <AddIcon />
                 </Fab>
             </Tooltip>

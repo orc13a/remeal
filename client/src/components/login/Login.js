@@ -47,7 +47,7 @@ function Login() {
         if (loggedInUserState.message !== undefined) {
             setAlertOpen(true);
         }
-    }, []);
+    }, [loggedInUserState]);
 
     const alertHandleClose = (event, reason) => {
         if (reason === 'clickaway') {

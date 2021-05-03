@@ -1,4 +1,4 @@
-import { Box, Grid, Container, CircularProgress } from '@material-ui/core';
+import { Box, Grid, Container, CircularProgress, Typography } from '@material-ui/core';
 // import Cookies from 'universal-cookie';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -24,19 +24,22 @@ function MyFridge() {
     Auth(false);
 
     const dispatch = useDispatch();
+
+    const usersItems = useSelector(state => state.items);
+    const itemState = useSelector(state => state.addItem);
     
     useEffect(() => {
         dispatch(getItems({ user: getLoggedInUser() }));
-    }, []);
-
-    const usersItems = useSelector(state => state.items);
-    console.log(usersItems);
+    }, [dispatch, usersItems, itemState]);
+    
     return (
-        <Box>
+        <Box style={{ paddingBottom: '65px' }}>
             Home
-            { usersItems.length == 0 ? <LoadingBox /> : ( 
-                <Items items={ usersItems } />
-            ) }
+            { usersItems.message === 'empty' ? <Typography>Dit køleskab er tomt</Typography> :
+                usersItems.lenght > 1 ? <LoadingBox /> : ( 
+                    <Items items={ usersItems } />
+                )
+            }
             <AddItem />
         </Box>
     );

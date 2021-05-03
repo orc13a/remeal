@@ -3,7 +3,7 @@ var jwt = require('jsonwebtoken');
 const auth = async (req, res, next) => {
     let token = '';
     let userId = '';
-
+    
     if (req.body.user !== undefined && req.body.user.userId !== undefined) {
         token = req.body.user.token;
         userId = req.body.user.userId;
