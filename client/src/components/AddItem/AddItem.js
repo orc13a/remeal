@@ -14,7 +14,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import deLocale from "date-fns/locale/da";
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from '../../actions/item';
+import { addItem, clearItemMessage } from '../../actions/item';
 import { Auth, getLoggedInUser } from '../Auth/Auth';
 import MuiAlert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -39,11 +39,10 @@ function AddItem() {
     const [alertOpen, setAlertOpen] = useState(false);
     // const [selectedDate, setSelectedDate] = useState(new Date());
     const [itemData, setItemData] = useState(defaultItemData);
-    
+
     useEffect(() => {
         if (itemState.message !== undefined) {
             setAlertOpen(true);
-            
         }
     }, [itemState]);
 
@@ -51,8 +50,8 @@ function AddItem() {
         if (reason === 'clickaway') {
             return;
         }
-        dispatch(addItem({}));
         setAlertOpen(false);
+        dispatch(clearItemMessage());
     };
 
     const handleClickOpen = () => {

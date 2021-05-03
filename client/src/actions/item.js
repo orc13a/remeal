@@ -1,5 +1,5 @@
 import * as api from '../api';
-import { ADD_ITEM, GET_ITEMS, DELETE_ITEM } from '../actionTypes';
+import { ADD_ITEM, GET_ITEMS, DELETE_ITEM, CLEAR_ITEM_MESSAGE } from '../actionTypes';
 
 export const addItem = (allData) => async (dispatch) => {
     try {
@@ -32,6 +32,16 @@ export const deleteItem = (itemId) => async (dispatch) => {
             type: DELETE_ITEM,
             payload: data
         });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export const clearItemMessage = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: CLEAR_ITEM_MESSAGE
+        })
     } catch (error) {
         console.error(error);
     }
