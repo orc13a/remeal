@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Auth, getLoggedInUser } from '../Auth/Auth';
 import AddItem from '../../components/AddItem/AddItem';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getItems } from '../../actions/item';
 import Items from '../Items/Items';
 import LoadingBox from '../LoadingBox/LoadingBox';
 import PageTitle from '../PageTitle/PageTitle';
+import { sendUserItems } from '../sendUserItems/sendUserItems';
 
 function FridgeContent({ items }) {
     if (items.message === 'empty') {
@@ -39,11 +40,19 @@ function MyFridge() {
 
     const dispatch = useDispatch();
 
+    const [itemsSend, setItemsSend] = useState(false);
+
     const usersItems = useSelector(state => state.items);
     const itemState = useSelector(state => state.addItem);
     
     useEffect(() => {
         dispatch(getItems({ user: getLoggedInUser() }));
+
+        if (itemsSend === false) {
+            sendUserItems(dispatch, usersItems);
+            setItemsSend(true);
+        }
+
     }, [dispatch, usersItems, itemState]);
     
     return (

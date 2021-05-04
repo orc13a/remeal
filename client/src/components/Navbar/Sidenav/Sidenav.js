@@ -31,6 +31,7 @@ const useStyles = makeStyles({
 function Sidenav() {
 
     const dispatch = useDispatch();
+
     const history = useHistory();
     const classes = useStyles();
     const [state, setState] = React.useState({

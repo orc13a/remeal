@@ -4,21 +4,12 @@ import { Link } from 'react-router-dom';
 import Sidebar from './Sidenav/Sidenav';
 import styles from './Navbar.module.css';
 import { Auth } from '../Auth/Auth';
-import { useDispatch, useSelector } from 'react-redux';
-import { GetUserRecipes } from '../GetUserRecipes/GetUserRecipes';
-import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 function Navbar() {
     Auth(false);
 
-    const dispatch = useDispatch();
-
     const authCheck = useSelector(state => state.authCheck);
-    const userItems = useSelector(state => state.items);
-
-    useEffect(() => {
-        GetUserRecipes(dispatch, userItems);
-    }, [dispatch]);
 
     return (
         <Box className={ styles.nav }>

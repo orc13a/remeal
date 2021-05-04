@@ -30,8 +30,30 @@ api.get('/all', auth, async (req, res) => {
 // ----------------------------------------
 
 api.post('/', auth, async (req, res) => {
-    console.log(req.body);
-    res.end();
+    let selectedRecipesId = [];
+    let userRecipes = [];
+    const items = req.body.items;
+    
+    if (items.lenght > 0) {
+        try {
+            const allRecipes = await recipeSchema.find({ });
+            
+            allRecipes.forEach(recipe => {
+                recipe['ingredients'].forEach(ingredientObj => {
+                    if (items.includes(ingredientObj.ingredient) === true && selectedRecipesId.includes(recipe.recipeId) === false) {
+                        userRecipes.push(recipe);
+                        selectedRecipesId.push(recipe.recipeId);
+                    }
+                });
+            });
+    
+            res.status(200).json(userRecipes);
+        } catch (error) {
+            res.status(200).json({ meesage: 'Ingen opskrifter fundet', type: 'error'});
+        }
+    } else {
+        res.status(200).json({ meesage: 'Ingen varer givet', type: 'error'});
+    }
 });
 
 // ----------------------------------------

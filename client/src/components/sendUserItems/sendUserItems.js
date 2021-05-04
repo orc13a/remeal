@@ -1,7 +1,7 @@
 import { getUserRecipes } from '../../actions/recipes';
 import { getLoggedInUser } from '../Auth/Auth';
 
-export const GetUserRecipes = (dispatch, userItems) => {
+export const sendUserItems = (dispatch, userItems) => {
     // const dispatch = useDispatch();
     // const userItem = useSelector(state => state.items);s
 
