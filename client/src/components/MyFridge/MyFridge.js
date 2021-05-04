@@ -1,4 +1,4 @@
-import { Box, Grid, Container, CircularProgress, Typography } from '@material-ui/core';
+import { Box, Grid, Container, Typography } from '@material-ui/core';
 // import Cookies from 'universal-cookie';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -7,18 +7,8 @@ import AddItem from '../../components/AddItem/AddItem';
 import { useEffect } from 'react';
 import { getItems } from '../../actions/item';
 import Items from '../Items/Items';
-
-function LoadingBox() {
-    return (
-        <Grid container spacing={0} alignItems="center" justify="center" style={{ minHeight: '60vh', textAlign: 'center' }}>
-            <Container maxWidth="xs">
-                <Grid item xl={true}>
-                    <CircularProgress />
-                </Grid>
-            </Container>
-        </Grid>
-    );
-}
+import LoadingBox from '../LoadingBox/LoadingBox';
+import PageTitle from '../PageTitle/PageTitle';
 
 function FridgeContent({ items }) {
     if (items.message === 'empty') {
@@ -58,9 +48,7 @@ function MyFridge() {
     
     return (
         <Box style={{ paddingBottom: '65px' }}>
-            <Typography variant="h4" style={{ marginBottom: '25px', marginLeft: '5px' }}>
-                Mit køleskab
-            </Typography>
+            <PageTitle title={ 'Mit køleskab' } />
             <FridgeContent items={ usersItems } />
             <AddItem />
         </Box>

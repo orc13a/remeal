@@ -12,7 +12,8 @@ const loginUser = (user = {}, action) => {
             user = action.payload;
             cookies.set('userLoggedIn', {
                 userId: user.userId,
-                token: user.token
+                token: user.token,
+                admin: user.admin
             }, { path: '/' });
             return action.payload;
         case LOGOUT:

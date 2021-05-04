@@ -8,6 +8,7 @@ const UserSchema = mongoose.Schema({
     email: String,
     password: String,
     familyFridgeId: String,
+    admin: Boolean,
     createdAt: {
         type: Date,
         default: new Date()

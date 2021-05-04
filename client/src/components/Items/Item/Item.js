@@ -7,7 +7,7 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import CloseIcon from '@material-ui/icons/Close';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { formateDate } from '../../../formatDate/formateDate';
+import { formateDate } from '../../formatDate/formateDate';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useState } from 'react';
 import { deleteItem } from '../../../actions/item';

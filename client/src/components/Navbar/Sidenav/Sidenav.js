@@ -12,10 +12,12 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 import Badge from '@material-ui/core/Badge';
+import SecurityIcon from '@material-ui/icons/Security';
 
 import styles from './Sidenav.module.css';
 // import { Auth } from '../../Auth/Auth';
 import { logoutUser } from '../../../actions/logout';
+import { getLoggedInUser } from '../../Auth/Auth';
 
 const useStyles = makeStyles({
   list: {
@@ -34,7 +36,7 @@ function Sidenav() {
     const [state, setState] = React.useState({
         right: false,
     });
-
+    
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
@@ -89,6 +91,16 @@ function Sidenav() {
                         </ListItemText>
                     </ListItem>
                 </Link>
+                { getLoggedInUser().admin === false ? '' : (
+                    <Link to="/settings">
+                        <ListItem button key="settings">
+                            <ListItemIcon><SecurityIcon /></ListItemIcon>
+                            <ListItemText>
+                                <Typography color="textPrimary">Admin</Typography>
+                            </ListItemText>
+                        </ListItem>
+                    </Link>
+                ) }
                 <Divider />
                 <ListItem button key="logout" onClick={ () => { dispatch(logoutUser(history)) } }>
                     <ListItemIcon><ExitToAppIcon /></ListItemIcon>

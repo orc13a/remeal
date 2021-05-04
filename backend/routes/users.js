@@ -39,7 +39,8 @@ api.post('/signup', async (req, res) => {
             email: req.body.email,
             password: req.body.password,
             fridgeItems: [],
-            familyFridgeId: null 
+            familyFridgeId: null,
+            admin: false
         }
         
         if (!newUserObj.email || newUserObj.email === undefined || newUserObj.email.length < 5 || newUserObj.firstName.length < 2) {
@@ -76,7 +77,7 @@ api.post('/login', async (req, res) => {
             if (err) { console.log(err) }
             if (result === true) {
                 var token = jwt.sign({ userId: user.userId }, 'remealSECRET');
-                res.status(200).json({ userId: user.userId, token, message: 'Du er blevet logget ind', type: 'success' });
+                res.status(200).json({ userId: user.userId, token, admin: user.admin, message: 'Du er blevet logget ind', type: 'success' });
             } else {
                 res.status(206).json({ message: 'E-mail eller adgangskode er forkert', type: 'error' });
             }
