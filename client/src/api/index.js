@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getLoggedInUser, IsLoggedIn } from '../components/Auth/Auth';
 
-const api = axios.create({ baseURL: 'http://localhost:9955/' });
+const api = axios.create({ baseURL: 'https://remeal.herokuapp.com/' });
 
 api.interceptors.request.use((req) => {
     if (IsLoggedIn() === true) {
