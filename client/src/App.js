@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NotFound from './components/NotFound/NotFound';
 import Navbar from './components/Navbar/Navbar';
 import Login from './components/Login/Login';
+import Admin from './components/Admin/Admin';
 import MyFridge from './components/MyFridge/MyFridge';
 import Recipes from './components/Recipes/Recipes';
 
@@ -13,6 +14,7 @@ function App() {
       <Navbar authCheck />
       <Switch>
         <Route path="/" exact component={ Login } />
+        <Route path="/admin" exact component={ Admin } />
         <Route path="/myFridge" exact component={ MyFridge } />
         <Route path="/recipes" exact component={ Recipes } />
 

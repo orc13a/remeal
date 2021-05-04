@@ -92,7 +92,7 @@ function Sidenav() {
                     </ListItem>
                 </Link>
                 { getLoggedInUser().admin === false ? '' : (
-                    <Link to="/settings">
+                    <Link to="/admin">
                         <ListItem button key="settings">
                             <ListItemIcon><SecurityIcon /></ListItemIcon>
                             <ListItemText>
