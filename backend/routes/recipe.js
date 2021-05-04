@@ -1,0 +1,42 @@
+// ----------------------------------------
+// All routs /frige/
+// ----------------------------------------
+
+// npm packages
+const express = require('express');
+const api = express.Router();
+const { v4: uuidv4 } = require('uuid');
+
+const auth = require('../middleware/Auth');
+
+// Schemas
+const recipeSchema = require('../models/recipe.model');
+
+// ----------------------------------------
+// GET requests
+// ----------------------------------------
+
+api.get('/all', auth, async (req, res) => {
+    try {
+        const allRecipes = await recipeSchema.find({ });
+        res.status(200).json(allRecipes);
+    } catch (error) {
+        res.status(404).json({ meesage: 'Ingen opskrifter fundet', type: 'error'});
+    }
+});
+
+// ----------------------------------------
+// POST requests
+// ----------------------------------------
+
+api.post('/', auth, async (req, res) => {
+    console.log(req.body);
+    res.end();
+});
+
+// ----------------------------------------
+// Export
+// ----------------------------------------
+
+// Export we can be used outside this file
+module.exports = api;

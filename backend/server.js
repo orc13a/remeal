@@ -18,6 +18,7 @@ server.use(cors());
 // Routes
 server.use('/users', require('./routes/users')); // All routs /users
 server.use('/fridge', require('./routes/fridge')); // All routs /fridge
+server.use('/recipe', require('./routes/recipe')); // All routs /recipe
 
 // If there is no route for what the user has requested for
 server.get('*', (req, res) => {
