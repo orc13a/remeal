@@ -15,6 +15,11 @@ const DBCONSTR = process.env.DBCONSTR;
 server.use(bodyParser.json());
 server.use(cors());
 
+server.get('/', (req, res) => {
+    res.send('Velkommen til remeal\'s API');
+    res.end();
+});
+
 // Routes
 server.use('/users', require('./routes/users')); // All routs /users
 server.use('/fridge', require('./routes/fridge')); // All routs /fridge
