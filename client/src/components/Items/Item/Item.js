@@ -11,9 +11,10 @@ import { formateDate } from '../../formatDate/formateDate';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useState } from 'react';
 import { deleteItem } from '../../../actions/item';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getLoggedInUser } from '../../Auth/Auth';
 import cssStyles from './Item.module.css';
+import { sendUserItems } from '../../sendUserItems/sendUserItems';
 
 const styles = (theme) => ({
     root: {
@@ -61,6 +62,7 @@ function Item({ item }) {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [helpDialogOpen, setHelpDialogOpen] = useState(false);
+    const usersItems = useSelector(state => state.items);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -77,6 +79,7 @@ function Item({ item }) {
         }
 
         dispatch(deleteItem(allData));
+        sendUserItems(dispatch, usersItems);
         handleClose();
     }
 

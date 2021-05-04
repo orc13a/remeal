@@ -7,9 +7,11 @@ export const sendUserItems = (dispatch, userItems) => {
 
     let allUserItems = [];
 
-    userItems.forEach(item => {
-        allUserItems.push(item.item.toLowerCase());
-    });
+    if (userItems.length > 0) {
+        userItems.forEach(item => {
+            allUserItems.push(item.item.toLowerCase());
+        });
+    }
 
     dispatch(getUserRecipes({
         user: getLoggedInUser(),

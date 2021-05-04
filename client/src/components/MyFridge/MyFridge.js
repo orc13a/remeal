@@ -44,6 +44,7 @@ function MyFridge() {
 
     const usersItems = useSelector(state => state.items);
     const itemState = useSelector(state => state.addItem);
+    //const recipesState = useSelector(state => state.recipes);
     
     useEffect(() => {
         dispatch(getItems({ user: getLoggedInUser() }));

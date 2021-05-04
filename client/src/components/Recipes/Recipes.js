@@ -1,10 +1,14 @@
 import { Box, Container, Grid, Typography } from "@material-ui/core";
+import { useSelector } from "react-redux";
 import LoadingBox from '../LoadingBox/LoadingBox';
 import PageTitle from "../PageTitle/PageTitle";
 import Recipe from "./Recipe/Recipe";
+import Cookies from 'universal-cookie';
 
-function RecipeContent({ recipe }) {
-    if (recipe.message === 'empty') {
+
+function RecipeContent({ recipes }) {
+    //recipes === undefined && recipes.message === 'empty'
+    if (recipes === undefined) {
         return (
             <Grid container spacing={0} alignItems="center" justify="center" style={{ minHeight: '60vh', textAlign: 'center' }}>
                 <Container maxWidth="xs">
@@ -16,24 +20,33 @@ function RecipeContent({ recipe }) {
                 </Container>
             </Grid>
         );
-    } else if (recipe.length === 0) {
+    } else if (recipes.length === 0) {
         return (
             <LoadingBox />
         );
     } else {
         return (
-            <Recipe recipe={ recipe } />
+            <Box style={{ textAlign: 'center' }}>
+                { recipes.map((recipe) => (
+                    <Recipe key={ recipe.recipeId } recipe={ recipe } />
+                )) }
+            </Box>
         );
     }
 }
 
-function recipe() {
+function Recipes() {
+    //const usersRecipes = useSelector(state => state.recipes);
+    const cookies = new Cookies();
+    const usersRecipes = cookies.get('userRecipes');
+
+    console.log(usersRecipes);
     return (
         <Box style={{ paddingBottom: '65px' }}>
             <PageTitle title={ 'Opskrift forslag' } />
-            <RecipeContent recipe={ {message: 'empty'} } />
+            <RecipeContent recipes={ usersRecipes } />
         </Box>
     );
 }
 
-export default recipe;
+export default Recipes;

@@ -18,6 +18,7 @@ import { addItem, clearItemMessage } from '../../actions/item';
 import { Auth, getLoggedInUser } from '../Auth/Auth';
 import MuiAlert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
+import { sendUserItems } from '../sendUserItems/sendUserItems';
 
 const defaultItemData = {
     item: '',

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import { Link, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,11 +13,13 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 import Badge from '@material-ui/core/Badge';
 import SecurityIcon from '@material-ui/icons/Security';
+import Cookies from 'universal-cookie';
 
 import styles from './Sidenav.module.css';
 // import { Auth } from '../../Auth/Auth';
 import { logoutUser } from '../../../actions/logout';
 import { getLoggedInUser } from '../../Auth/Auth';
+import { sendUserItems } from '../../sendUserItems/sendUserItems';
 
 const useStyles = makeStyles({
   list: {
@@ -31,13 +33,26 @@ const useStyles = makeStyles({
 function Sidenav() {
 
     const dispatch = useDispatch();
+    const cookies = new Cookies();
 
     const history = useHistory();
     const classes = useStyles();
     const [state, setState] = React.useState({
         right: false,
     });
-    
+    const [userRecipes, setUserRecipes] = useState(0);
+    const usersItems = useSelector(state => state.items);
+
+    const checkItems = () => {
+        sendUserItems(dispatch, usersItems);
+    }
+
+    useEffect(() => {
+        if (cookies.get('userRecipes') !== undefined) {
+            setUserRecipes(cookies.get('userRecipes').length);
+        }
+    }, [checkItems, dispatch, cookies, userRecipes, usersItems]);
+
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
@@ -57,7 +72,7 @@ function Sidenav() {
         >
             <List className={ styles.buttons }>
                 <Link to="/myFridge">
-                    <ListItem button key="myFridge">
+                    <ListItem button key="myFridge" onClick={ checkItems }>
                         <ListItemIcon><KitchenIcon /></ListItemIcon>
                         <ListItemText>
                             <Typography color="textPrimary">Mit køleskab</Typography>
@@ -65,9 +80,9 @@ function Sidenav() {
                     </ListItem>
                 </Link>
                 <Link to="/recipes">
-                    <ListItem button key="recipes">
+                    <ListItem button key="recipes" onClick={ checkItems }>
                         <ListItemIcon>
-                            <Badge badgeContent={1} color="primary">
+                            <Badge badgeContent={ userRecipes } color="primary">
                                 <RestaurantIcon />
                             </Badge>
                         </ListItemIcon>
@@ -77,7 +92,7 @@ function Sidenav() {
                     </ListItem>
                 </Link>
                 <Link to="/profil">
-                    <ListItem button key="profil">
+                    <ListItem button key="profil" onClick={ checkItems }>
                         <ListItemIcon><PersonIcon /></ListItemIcon>
                         <ListItemText>
                             <Typography color="textPrimary">Profil</Typography>
@@ -85,7 +100,7 @@ function Sidenav() {
                     </ListItem>
                 </Link>
                 <Link to="/settings">
-                    <ListItem button key="settings">
+                    <ListItem button key="settings" onClick={ checkItems }>
                         <ListItemIcon><SettingsIcon /></ListItemIcon>
                         <ListItemText>
                             <Typography color="textPrimary">Indstillinger</Typography>
@@ -94,7 +109,7 @@ function Sidenav() {
                 </Link>
                 { getLoggedInUser().admin === false ? '' : (
                     <Link to="/admin">
-                        <ListItem button key="settings">
+                        <ListItem button key="settings" onClick={ checkItems }>
                             <ListItemIcon><SecurityIcon /></ListItemIcon>
                             <ListItemText>
                                 <Typography color="textPrimary">Admin</Typography>
